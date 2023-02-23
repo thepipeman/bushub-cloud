@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  one-config:
+    image: bhcore/bushub-core:0.0.1-SNAPSHOT
+    container_name: bushub-core
+    # docker run -p 8000:9000 one-config:latest
+    ports:
+      - 9000:9000
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://172.17.0.1:5432/bushub_core
