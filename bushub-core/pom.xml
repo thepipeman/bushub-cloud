@@ -16,7 +16,7 @@
 
   <properties>
     <java.version>17</java.version>
-    <docker.image.prefix>bhcore</docker.image.prefix>
+    <docker.image.prefix>bushub</docker.image.prefix>
   </properties>
 
   <dependencies>
@@ -110,6 +110,9 @@
               <artifactId>lombok</artifactId>
             </exclude>
           </excludes>
+          <image>
+            <name>${docker.image.prefix}/${project.artifactId}:latest</name>
+          </image>
         </configuration>
       </plugin>
 
