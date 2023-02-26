@@ -26,4 +26,9 @@ public class TripService {
   public List<Trip> readAll() {
     return Lists.newArrayList(repository.findAll());
   }
+
+  @Transactional(readOnly = true)
+  public List<Trip> readBySchedule(Long scheduleId) {
+    return Lists.newArrayList(repository.findByScheduleId(scheduleId));
+  }
 }
