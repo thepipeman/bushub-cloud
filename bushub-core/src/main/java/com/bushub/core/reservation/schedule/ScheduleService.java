@@ -26,4 +26,9 @@ public class ScheduleService {
   public List<Schedule> readAll() {
     return Lists.newArrayList(scheduleRepository.findAll());
   }
+
+  @Transactional(readOnly = true)
+  public List<Schedule> readByRouteId(long routeId) {
+    return Lists.newArrayList(scheduleRepository.findByRouteId(routeId));
+  }
 }

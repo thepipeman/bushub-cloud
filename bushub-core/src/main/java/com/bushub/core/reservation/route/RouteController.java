@@ -10,11 +10,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RouteController {
 
-  final RouteService routeService;
+  private final RouteService routeService;
 
   @GetMapping
   public List<Route> readRoutes() {
     return routeService.readAll();
   }
-
 }

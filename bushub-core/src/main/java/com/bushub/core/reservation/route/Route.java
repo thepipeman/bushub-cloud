@@ -1,6 +1,7 @@
 package com.bushub.core.reservation.route;
 
 import com.bushub.core.reservation.schedule.Schedule;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -27,6 +28,7 @@ public class Route implements Serializable {
   @Min(1)
   private int distance;
 
-  @OneToMany(mappedBy = "route", fetch = FetchType.LAZY)
+//  @JsonManagedReference
+  @OneToMany(mappedBy = "route")
   private Set<Schedule> schedules;
 }
