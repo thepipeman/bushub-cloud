@@ -28,7 +28,7 @@ public class Route implements Serializable {
   @Min(1)
   private int distance;
 
-//  @JsonManagedReference
+  @JsonManagedReference
   @OneToMany(mappedBy = "route")
   private Set<Schedule> schedules;
 }

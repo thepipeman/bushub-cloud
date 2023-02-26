@@ -2,7 +2,6 @@ package com.bushub.core.reservation.schedule;
 
 import com.bushub.core.bus.BusType;
 import com.bushub.core.reservation.route.Route;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -28,8 +27,11 @@ public class Schedule implements Serializable {
   @JsonFormat(pattern = "HH:mm:ss")
   private LocalTime departureTime;
 
-//  @JsonBackReference
   @ManyToOne
   @JoinColumn(name = "route_id", nullable = false)
   private Route route;
+
+  public Integer getCapacity() {
+    return this.busType.getSeatCapacity();
+  }
 }
