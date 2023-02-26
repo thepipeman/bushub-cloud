@@ -22,6 +22,7 @@ public class BusService {
     return busCreated.getId();
   }
 
+  @Transactional(readOnly = true)
   public List<Bus> readAll() {
     return Lists.newArrayList(busRepository.findAll());
   }
