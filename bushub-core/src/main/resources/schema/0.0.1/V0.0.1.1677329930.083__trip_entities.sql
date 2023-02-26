@@ -17,7 +17,7 @@ CREATE UNIQUE INDEX route_uq_origin_destination
   WHERE t_active IS TRUE;
 
 -- Pricing
-CREATE TABLE trip.pricing (
+CREATE TABLE trp.pricing (
   id          BIGSERIAL   NOT NULL,
   base_fare   NUMERIC     NOT NULL,
   per_km_fare NUMERIC     NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE trip.pricing (
 );
 
 CREATE UNIQUE INDEX pricing_uq_bus_type
-  ON trip.pricing(bus_type)
+  ON trp.pricing(bus_type)
   WHERE t_active IS TRUE;
 
 -- Schedule
@@ -134,7 +134,7 @@ CREATE TABLE trp.booking (
 CREATE UNIQUE INDEX booking_uq_trip_id_seat_number_available
   ON trp.booking(trip_id, seat_number)
   WHERE t_active IS TRUE
-    AND status != 'CANCELLED' :: trp.TRIP_STATUS;
+    AND status != 'CANCELLED' :: trp.BOOKING_STATUS;
 
 
 ALTER TABLE trp.booking
