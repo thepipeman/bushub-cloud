@@ -68,6 +68,8 @@ $$
   END
 $$;
 
+CREATE CAST (CHARACTER VARYING as trp.TRIP_STATUS) WITH INOUT AS IMPLICIT;
+
 -- a daily "snapshot" of schedule + with complete bus details.
 CREATE TABLE trp.trip (
   id             BIGSERIAL       NOT NULL,
@@ -117,6 +119,8 @@ $$
     WHEN duplicate_object THEN NULL;
   END
 $$;
+
+CREATE CAST (CHARACTER VARYING as trp.booking_status) WITH INOUT AS IMPLICIT;
 
 CREATE TABLE trp.booking (
   id            BIGSERIAL          NOT NULL,

@@ -1,8 +1,10 @@
 package com.bushub.core.reservation.trip;
 
 import com.bushub.core.bus.Bus;
+import com.bushub.core.reservation.booking.Booking;
 import com.bushub.core.reservation.schedule.Schedule;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -10,6 +12,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Data
 @Entity
@@ -40,4 +43,8 @@ public class Trip {
   @ManyToOne
   @JoinColumn(name = "bus_id", nullable = false)
   private Bus bus;
+
+  @JsonManagedReference
+  @OneToMany(mappedBy = "trip")
+  private Set<Booking> booking;
 }
