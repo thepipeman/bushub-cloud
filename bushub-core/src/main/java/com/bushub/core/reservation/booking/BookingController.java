@@ -1,25 +1,23 @@
-package com.bushub.core.reservation;
+package com.bushub.core.reservation.booking;
 
-import com.bushub.core.reservation.booking.Booking;
-import com.bushub.core.reservation.booking.BookingService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/reservations")
+@RequestMapping("/bookings")
 @RequiredArgsConstructor
-public class ReservationController {
+public class BookingController {
 
   private final BookingService bookingService;
 
-  @PostMapping(value = "/bookings", produces = MediaType.APPLICATION_JSON_VALUE)
+  @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public long reserveBooking(@Valid @RequestBody Booking booking) {
     return bookingService.create(booking);
   }
 
-  @GetMapping("/bookings/{id}")
+  @GetMapping("/{id}")
   public Booking readBookingById(@PathVariable("id") long id) {
     return bookingService.readById(id);
   }
