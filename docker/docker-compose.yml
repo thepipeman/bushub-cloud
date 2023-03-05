@@ -1,18 +1,32 @@
-version: '3.8'
+version: '3.9'
 
 services:
-  bushub-core:
-    image: bhcore/bushub-core:0.0.1-SNAPSHOT
-    container_name: bushub-core
-    # docker run -p 8000:9000 one-config:latest
+  bushub-config:
+    image: bushub/bushub-config:0.0.1-SNAPSHOT
+    container_name: bushub-config
     ports:
       - 9000:9000
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://172.17.0.1:5432/bushub_core
     networks:
       backend:
         aliases:
-          - "bushub-core"
+          - "bushub-config"
+
+  bushub-core:
+    depends_on:
+      bushub-config:
+        condition: service_started
+    restart: on-failure
+    image: bushub/bushub-core:0.0.1-SNAPSHOT
+    container_name: bushub-core
+    ports:
+      - 9001:9001
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://172.17.0.1:9000/api
+
+    networks:
+      - backend
+
 
 networks:
   backend:

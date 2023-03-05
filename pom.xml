@@ -6,4 +6,9 @@
   <version>1.0-SNAPSHOT</version>
   <name>bushub-cloud</name>
   <packaging>pom</packaging>
+
+  <modules>
+    <module>bushub-core</module>
+    <module>bushub-config</module>
+  </modules>
 </project>

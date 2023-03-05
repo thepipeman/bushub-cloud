@@ -10,8 +10,7 @@ spring:
 
   # Datasource settings
   datasource:
-#    url: jdbc:postgresql://localhost:5432/bushub_core
-    url: TEST
+    url: jdbc:postgresql://localhost:5432/bushub_core
     username: root
     password: adminadmin
     driver-class-name: org.postgresql.Driver
@@ -29,16 +28,16 @@ spring:
     table: schema_version
 
   config:
-    import: configserver:http://localhost:9000/api
+    import: optional:configserver:http://172.17.0.1:9000/api
 
   cloud:
     config:
+      name: bushub-core
       fail-fast: true
       retry:
         initial-interval: 1000
         max-interval: 2000
         max-attempts: 20
-
 
 #------------------------------------
 # Server settings
@@ -48,3 +47,10 @@ server:
   port: 9001
   servlet:
     context-path: /api
+
+#------------------------------------
+# Logging
+#------------------------------------
+#logging:
+#  pattern:
+#    level: %5p [${spring.application.name}]
