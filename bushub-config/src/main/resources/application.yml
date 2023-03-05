@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: bushub-config
+
+#------------------------------------
+# Server settings
+#------------------------------------
+
+server:
+  port: 9000
+  servlet:
+    context-path: /api
