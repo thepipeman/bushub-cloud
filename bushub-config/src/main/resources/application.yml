@@ -2,6 +2,13 @@ spring:
   application:
     name: bushub-config
 
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/thepipeman/bushub-configuration
+          skip-ssl-validation: true
+
 #------------------------------------
 # Server settings
 #------------------------------------
