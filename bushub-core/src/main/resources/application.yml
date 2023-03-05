@@ -28,6 +28,7 @@ spring:
     table: schema_version
 
   config:
+    # not working with docker compose, so the config server is explicitly set here
     import: optional:configserver:http://172.17.0.1:9000/api
 
   cloud:
