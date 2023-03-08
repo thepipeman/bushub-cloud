@@ -10,5 +10,6 @@
   <modules>
     <module>bushub-core</module>
     <module>bushub-config</module>
+    <module>bushub-discovery</module>
   </modules>
 </project>

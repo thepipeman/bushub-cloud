@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: bushub-discovery
+
+  config:
+    # not working with docker compose, so the config server is explicitly set here
+    import: optional:configserver:http://172.17.0.1:9000/config
+
+
+#------------------------------------
+# Server settings
+#------------------------------------
+server:
+  port: 9003
+  servlet:
+    context-path: /discovery
