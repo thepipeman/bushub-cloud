@@ -1,0 +1,4 @@
+spring:
+  config:
+    # not working with docker compose, so the config server is explicitly set here
+    import: optional:configserver:http://localhost:9000/config

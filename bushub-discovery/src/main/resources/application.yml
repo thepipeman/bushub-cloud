@@ -7,6 +7,16 @@ spring:
     import: optional:configserver:http://172.17.0.1:9000/config
 
 
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      # sample translation: http://localhost:9003/discovery
+      default-zone: http://${eureka.instance.hostname}:${server.port}${server.servlet.context-path}
+
 #------------------------------------
 # Server settings
 #------------------------------------
