@@ -19,7 +19,7 @@ services:
     image: bushub/bushub-core:0.0.1-SNAPSHOT
     container_name: bushub-core
     ports:
-      - 9001:9001
+      - 9003:9003
     environment:
       - SPRING_PROFILES_ACTIVE=dev
       - SPRING_CONFIG_IMPORT=optional:configserver:http://172.17.0.1:9000/api
