@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -17,9 +18,13 @@ public class BookingService {
   private final BookingRepository bookingRepository;
 
   public Long create(Booking booking) {
-    final var created = bookingRepository.save(booking);
+    final var bookingToPersist = booking.toBuilder()
+      .referenceNumber(UUID.randomUUID().toString())
+      .build();
+
+    final var created = bookingRepository.save(bookingToPersist);
     log.trace("Booking created [id=<{}>]", created.getId());
-    return booking.getId();
+    return created.getId();
   }
 
   @Transactional(readOnly = true)

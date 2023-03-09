@@ -5,11 +5,13 @@ import com.bushub.core.reservation.trip.Trip;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
 
 @Data
+@Builder(toBuilder = true)
 @Entity
 @Table(schema = "trp", name = "booking")
 public class Booking {
@@ -30,7 +32,10 @@ public class Booking {
 
   @NotNull
   @Enumerated(EnumType.STRING)
+  @Builder.Default
   private BookingStatus status = BookingStatus.PENDING_PAYMENT;
 
   private String customerName;
+
+  private String referenceNumber;
 }
