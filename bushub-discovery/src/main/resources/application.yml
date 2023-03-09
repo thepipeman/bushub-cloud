@@ -11,16 +11,14 @@ eureka:
   instance:
     hostname: localhost
   client:
-    register-with-eureka: false
-    fetch-registry: false
-    service-url:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
       # sample translation: http://localhost:9003/discovery
-      default-zone: http://${eureka.instance.hostname}:${server.port}${server.servlet.context-path}
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
 
 #------------------------------------
 # Server settings
 #------------------------------------
 server:
-  port: 9003
-  servlet:
-    context-path: /discovery
+  port: 9001
