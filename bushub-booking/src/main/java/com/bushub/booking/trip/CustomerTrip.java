@@ -4,13 +4,14 @@ import com.bushub.booking.customer.Customer;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 
 import java.io.Serializable;
 
 // this should be cached
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "customer_trip")
 public class CustomerTrip implements Serializable {

@@ -12,5 +12,6 @@
     <module>bushub-config</module>
     <module>bushub-discovery</module>
     <module>bushub-booking</module>
+    <module>bushub-commons</module>
   </modules>
 </project>
