@@ -6,14 +6,29 @@ services:
     container_name: bushub-config
     ports:
       - 9000:9000
+#    networks:
+#      backend:
+#        aliases:
+#          - "bushub-config"
+
+  bushub-discovery:
+    image: bushub/bushub-discovery:0.0.1-SNAPSHOT
+    container_name: bushub-discovery
+    depends_on:
+      bushub-config:
+        condition: service_started
+    ports:
+      - 9001:9001
     networks:
       backend:
         aliases:
-          - "bushub-config"
+          - "bushub-discovery"
 
   bushub-core:
     depends_on:
       bushub-config:
+        condition: service_started
+      bushub-discovery:
         condition: service_started
     restart: on-failure
     image: bushub/bushub-core:0.0.1-SNAPSHOT
@@ -22,10 +37,10 @@ services:
       - 9003:9003
     environment:
       - SPRING_PROFILES_ACTIVE=dev
-      - SPRING_CONFIG_IMPORT=optional:configserver:http://172.17.0.1:9000/api
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://172.17.0.1:9000/config
 
-    networks:
-      - backend
+#    networks:
+#      - backend
 
 
 networks:
