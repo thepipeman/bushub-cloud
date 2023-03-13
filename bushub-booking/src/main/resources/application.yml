@@ -27,6 +27,18 @@ spring:
     out-of-order: true
     table: schema_version
 
+  config:
+    # not working with docker compose, so the config server is explicitly set here
+    import: optional:configserver:http://172.17.0.1:9000/config
+
+  cloud:
+    config:
+      name: bushub-booking
+      fail-fast: true
+      retry:
+        initial-interval: 1000
+        max-interval: 2000
+        max-attempts: 20
 
 #------------------------------------
 # Server settings
