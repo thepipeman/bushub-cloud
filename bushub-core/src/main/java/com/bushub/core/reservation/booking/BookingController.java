@@ -33,7 +33,7 @@ public class BookingController {
     return bookingService.readByTripId(tripId);
   }
 
-  @GetMapping("/ref/{refNumber}")
+  @GetMapping(value = "/ref/{refNumber}", produces = MediaType.APPLICATION_JSON_VALUE)
   public BookingView readByRefNumber(@PathVariable("refNumber") String referenceNumber) {
     return bookingService.readCustomerTripByRefNumber(referenceNumber);
   }

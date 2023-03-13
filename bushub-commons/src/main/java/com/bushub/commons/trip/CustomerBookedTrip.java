@@ -14,4 +14,4 @@ public record CustomerBookedTrip(String referenceNumber,
                                  String origin,
                                  String destination,
                                  int distance,
-                                 String busNumber) {}
+                                 String tripCode) {}

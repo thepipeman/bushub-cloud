@@ -65,6 +65,16 @@
 
     <!-- spring end -->
 
+    <!-- bus hub -->
+
+    <dependency>
+      <groupId>com.bushub</groupId>
+      <artifactId>bushub-commons</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+
+    <!-- bushub -->
+
     <!-- persistence -->
 
     <dependency>
