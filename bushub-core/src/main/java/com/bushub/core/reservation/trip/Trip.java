@@ -45,6 +45,8 @@ public class Trip {
   private Bus bus;
 
   @JsonManagedReference
-  @OneToMany(mappedBy = "trip")
+  @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL)
   private Set<Booking> booking;
+
+  private String tripCode;
 }

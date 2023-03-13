@@ -22,14 +22,17 @@ public class CustomerTripService {
     return customerTripCreated.getId();
   }
 
+  @Transactional(readOnly = true)
   public CustomerTrip readById(long id) {
     return customerTripRepository.findById(id).orElse(null);
   }
 
+  @Transactional(readOnly = true)
   public CustomerTrip readByReferenceNumber(String referenceNumber) {
     return customerTripRepository.findByReferenceNumber(referenceNumber).orElse(null);
   }
 
+  @Transactional(readOnly = true)
   public List<CustomerTrip> readCustomerTrips(long customerId) {
     return Lists.newArrayList(customerTripRepository.findByCustomerId(customerId));
   }

@@ -1,6 +1,5 @@
 package com.bushub.core.reservation.booking;
 
-import com.bushub.commons.trip.CustomerBookedTrip;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,13 +28,13 @@ public class BookingController {
     return booking;
   }
 
-//  @GetMapping("/ref/{refNumber}")
-//  public CustomerBookedTrip readByRefNumber(@PathVariable("refNumber") String referenceNumber) {
-//    return bookingService.radCustomerTripByRefNumber(referenceNumber);
-//  }
+  @GetMapping
+  public List<Booking> readBookings(@RequestParam("tripId") long tripId) {
+    return bookingService.readByTripId(tripId);
+  }
 
   @GetMapping("/ref/{refNumber}")
-  public List<CustomerBookedTrip> readByRefNumber(@PathVariable("refNumber") String referenceNumber) {
-    return bookingService.readCustomerTripCollectionByRefNumber(referenceNumber);
+  public BookingView readByRefNumber(@PathVariable("refNumber") String referenceNumber) {
+    return bookingService.readCustomerTripByRefNumber(referenceNumber);
   }
 }
