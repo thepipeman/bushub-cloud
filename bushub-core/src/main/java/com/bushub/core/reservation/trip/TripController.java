@@ -22,4 +22,9 @@ public class TripController {
 
     return tripService.readAll();
   }
+
+  @GetMapping("/{tripCode}")
+  public Trip readByTripCode(@PathVariable("tripCode") String tripCode) {
+    return tripService.readByTripCode(tripCode);
+  }
 }

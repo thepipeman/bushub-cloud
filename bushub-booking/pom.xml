@@ -2,6 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+  <groupId>com.bushub</groupId>
+  <artifactId>bushub-booking</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>bushub-booking</name>
+  <description>bushub-booking</description>
+
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
@@ -9,16 +15,10 @@
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
 
-  <groupId>com.bushub</groupId>
-  <artifactId>bushub-core</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>bushub-core</name>
-  <description>bushub-core</description>
-
   <properties>
     <java.version>17</java.version>
-    <docker.image.prefix>bushub</docker.image.prefix>
     <spring-cloud.version>2022.0.1</spring-cloud.version>
+    <docker.image.prefix>bushub</docker.image.prefix>
   </properties>
 
   <dependencies>
@@ -54,7 +54,26 @@
       <version>2.0.0</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-openfeign</artifactId>
+    </dependency>
+
     <!-- spring end -->
+
+    <!-- bus hub -->
+
+    <dependency>
+      <groupId>com.bushub</groupId>
+      <artifactId>bushub-commons</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+
+    <!-- bushub -->
 
     <!-- persistence -->
 
@@ -85,12 +104,6 @@
     </dependency>
 
     <!-- persistence end -->
-
-    <dependency>
-      <groupId>com.bushub</groupId>
-      <artifactId>bushub-commons</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
-    </dependency>
 
     <!-- others start -->
 
@@ -151,9 +164,6 @@
               <artifactId>lombok</artifactId>
             </exclude>
           </excludes>
-          <layers>
-            <enabled>true</enabled>
-          </layers>
         </configuration>
       </plugin>
 
@@ -191,7 +201,7 @@
             <phase>install</phase>
             <goals>
               <goal>build</goal>
-<!--              <goal>push</goal>-->
+              <!--              <goal>push</goal>-->
             </goals>
           </execution>
         </executions>
@@ -199,5 +209,16 @@
 
     </plugins>
   </build>
+
+  <repositories>
+    <repository>
+      <id>netflix-candidates</id>
+      <name>Netflix Candidates</name>
+      <url>https://artifactory-oss.prod.netflix.net/artifactory/maven-oss-candidates</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
 
 </project>

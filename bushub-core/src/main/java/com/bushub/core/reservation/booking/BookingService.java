@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -17,20 +18,37 @@ public class BookingService {
   private final BookingRepository bookingRepository;
 
   public Long create(Booking booking) {
+    booking.setReferenceNumber(UUID.randomUUID().toString());
     final var created = bookingRepository.save(booking);
     log.trace("Booking created [id=<{}>]", created.getId());
-    return booking.getId();
+    return created.getId();
   }
 
   @Transactional(readOnly = true)
   public Booking readById(long id) {
-    return bookingRepository.findById(id)
+    final var booking = bookingRepository.findById(id)
       .orElse(null);
+    log.trace("Booking {}", booking);
+    return booking;
   }
 
   @Transactional(readOnly = true)
   public List<Booking> readByTripId(long tripId) {
     return Lists.newArrayList(bookingRepository.findByTripId(tripId));
   }
+
+  @Transactional(readOnly = true)
+  public BookingView readCustomerTripByRefNumber(String refNumber) {
+    return bookingRepository.findByReferenceNumber(refNumber).orElse(null);
+  }
+
+//  @Transactional(readOnly = true)
+//  public List<CustomerBookedTrip> readCustomerTripCollectionByRefNumber(String refNumber) {
+////    return Lists.newArrayList(bookingRepository.findCollectionByReferenceNumber(refNumber));
+//    return bookingRepository.findCollectionByReferenceNumber(refNumber)
+//      .stream()
+//      .map(this::convertBooking)
+//      .collect(Collectors.toList());
+//  }
 
 }

@@ -31,4 +31,10 @@ public class TripService {
   public List<Trip> readBySchedule(Long scheduleId) {
     return Lists.newArrayList(repository.findByScheduleId(scheduleId));
   }
+
+  @Transactional(readOnly = true)
+  public Trip readByTripCode(String code) {
+    return repository.findByTripCode(code)
+      .orElse(null);
+  }
 }
