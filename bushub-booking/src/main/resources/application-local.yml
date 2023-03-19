@@ -25,6 +25,10 @@ resilience4j:
         - java.io.IOException
         - java.util.concurrent.TimeoutException
         - org.springframework.web.client.ResourceAccessException
+  bulkhead:
+    bulkheadCustomerTripByRef:
+      maxWaitDuration: 10ms
+      maxConcurrentCalls: 20
 
 management:
   endpoints:

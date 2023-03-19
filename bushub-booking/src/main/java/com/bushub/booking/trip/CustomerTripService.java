@@ -2,6 +2,7 @@ package com.bushub.booking.trip;
 
 import com.bushub.commons.trip.CustomerBookedTrip;
 import com.google.common.collect.Lists;
+import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +34,7 @@ public class CustomerTripService {
   }
 
   @CircuitBreaker(name = "customerTripByRef", fallbackMethod = "customerTripByRefFallback")
+  @Bulkhead(name = "bulkheadCustomerTripByRef", fallbackMethod = "customerTripByRefFallback")
   @Transactional(readOnly = true)
   public CustomerBookedTrip readByReferenceNumber(String refNumber) throws TimeoutException {
     final var customerTrip = customerTripRepository.findByReferenceNumber(refNumber).orElse(null);
