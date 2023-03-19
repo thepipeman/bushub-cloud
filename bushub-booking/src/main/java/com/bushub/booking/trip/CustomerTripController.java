@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.concurrent.TimeoutException;
+
 @Slf4j
 @RequiredArgsConstructor
 @RestController
@@ -14,7 +16,7 @@ public class CustomerTripController {
   private final CustomerTripService customerTripService;
 
   @GetMapping("/{refNumber}")
-  public CustomerBookedTrip readByRefNumber(@PathVariable("refNumber") String refNumber) {
+  public CustomerBookedTrip readByRefNumber(@PathVariable("refNumber") String refNumber) throws TimeoutException {
     return customerTripService.readByReferenceNumber(refNumber);
   }
 
