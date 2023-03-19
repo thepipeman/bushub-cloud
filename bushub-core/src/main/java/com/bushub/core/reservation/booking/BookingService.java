@@ -41,14 +41,4 @@ public class BookingService {
   public BookingView readCustomerTripByRefNumber(String refNumber) {
     return bookingRepository.findByReferenceNumber(refNumber).orElse(null);
   }
-
-//  @Transactional(readOnly = true)
-//  public List<CustomerBookedTrip> readCustomerTripCollectionByRefNumber(String refNumber) {
-////    return Lists.newArrayList(bookingRepository.findCollectionByReferenceNumber(refNumber));
-//    return bookingRepository.findCollectionByReferenceNumber(refNumber)
-//      .stream()
-//      .map(this::convertBooking)
-//      .collect(Collectors.toList());
-//  }
-
 }
