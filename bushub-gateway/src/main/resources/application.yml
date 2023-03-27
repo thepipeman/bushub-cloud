@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: bushub-gateway
+
+  config:
+    # not working with docker compose, so the config server is explicitly set here
+    import: optional:configserver:http://172.17.0.1:9000/config
+
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      # sample translation: http://localhost:9003/discovery
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
+
+#------------------------------------
+# Server settings
+#------------------------------------
+server:
+  port: 9002
