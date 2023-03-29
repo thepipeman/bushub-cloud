@@ -36,16 +36,18 @@
     <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-      <!--      <exclusions>-->
-      <!--        <exclusion>-->
-      <!--          <groupId>org.springframework.cloud</groupId>-->
-      <!--          <artifactId>spring-cloud-starter-ribbon</artifactId>-->
-      <!--        </exclusion>-->
-      <!--        <exclusion>-->
-      <!--          <groupId>com.netflix.ribbon</groupId>-->
-      <!--          <artifactId>ribbon-eureka</artifactId>-->
-      <!--        </exclusion>-->
-      <!--      </exclusions>-->
+    </dependency>
+
+    <dependency>
+      <groupId>com.bushub</groupId>
+      <artifactId>bushub-commons</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <optional>true</optional>
     </dependency>
 
     <dependency>
