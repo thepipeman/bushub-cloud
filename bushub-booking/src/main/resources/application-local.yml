@@ -3,7 +3,6 @@ spring:
     # not working with docker compose, so the config server is explicitly set here
     import: optional:configserver:http://localhost:9000/config
 
-
 eureka:
   client:
     preferIpAddress: true
@@ -48,6 +47,11 @@ management:
     health:
       enabled: true
       show-details: always
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+    com.bushub: TRACE
 
 bushub:
   core:

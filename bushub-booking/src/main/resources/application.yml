@@ -48,3 +48,11 @@ server:
   port: 9004
   servlet:
     context-path: /api
+
+
+feign:
+  client:
+    config:
+      default:
+        requestInterceptors:
+          - com.bushub.booking.util.http.CustomHttpConfig

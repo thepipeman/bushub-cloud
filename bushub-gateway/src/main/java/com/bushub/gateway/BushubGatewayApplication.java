@@ -1,17 +1,17 @@
-package com.bushub.booking;
+package com.bushub.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
 
 @ComponentScan({"com.bushub"})
 @SpringBootApplication
-@EnableFeignClients
-public class BushubBookingApplication {
+@EnableDiscoveryClient
+public class BushubGatewayApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(BushubBookingApplication.class, args);
+    SpringApplication.run(BushubGatewayApplication.class, args);
   }
 
 }

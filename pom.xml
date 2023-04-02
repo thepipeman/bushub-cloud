@@ -13,5 +13,6 @@
     <module>bushub-discovery</module>
     <module>bushub-booking</module>
     <module>bushub-commons</module>
+    <module>bushub-gateway</module>
   </modules>
 </project>

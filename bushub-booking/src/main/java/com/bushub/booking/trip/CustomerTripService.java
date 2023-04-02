@@ -42,7 +42,7 @@ public class CustomerTripService {
       return null;
     }
 
-    randomlyRunLong();
+//    randomlyRunLong();
     final var customerBookedTrip = customerBookingClient.getTripByReferenceNumber(refNumber);
     log.info("CustomerBookedTrip {}", customerBookedTrip);
     return customerBookedTrip;
