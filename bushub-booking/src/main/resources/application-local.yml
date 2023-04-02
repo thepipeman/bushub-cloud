@@ -51,6 +51,7 @@ management:
 logging:
   level:
     org.springframework.web: DEBUG
+    com.bushub: TRACE
 
 bushub:
   core:
