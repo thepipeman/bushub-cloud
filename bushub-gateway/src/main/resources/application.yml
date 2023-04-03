@@ -6,16 +6,42 @@ spring:
     # not working with docker compose, so the config server is explicitly set here
     import: optional:configserver:http://172.17.0.1:9000/config
 
+  cloud:
+    discovery:
+      enabled: true
+    gateway:
+      routes:
+        - id: bushub-core
+          uri: lb://bushub-core
+          predicates:
+            - Path=/core/**
+          filters:
+            - RewritePath=/core/(?<path>.*), /$\{path}
+        - id: bushub-booking
+          uri: lb://bushub-booking
+          predicates:
+            - Path=/booking/**
+          filters:
+            - RewritePath=/booking/(?<path>.*), /$\{path}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    gateway:
+      enabled: true
 
 eureka:
-  instance:
-    hostname: localhost
   client:
-    registerWithEureka: false
-    fetchRegistry: false
+    healthcheck:
+      enabled: true
+    preferIpAddress: true
+    registerWithEureka: true
+    fetchRegistry: true
     serviceUrl:
-      # sample translation: http://localhost:9003/discovery
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
+      defaultZone: http://172.17.0.1:9001/eureka
 
 #------------------------------------
 # Server settings

@@ -48,16 +48,15 @@ services:
         condition: service_started
       bushub-discovery:
         condition: service_started
-#    restart: on-failure
+    #    restart: on-failure
     image: bushub/bushub-core:0.0.1-SNAPSHOT
     container_name: bushub-core
     ports:
       - 9003:9003
     environment:
       - SPRING_PROFILES_ACTIVE=dev
-
-#    networks:
-#      - backend
+    networks:
+      - backend
 
   bushub-booking:
     depends_on:
@@ -65,7 +64,6 @@ services:
         condition: service_started
       bushub-discovery:
         condition: service_started
-#    restart: on-failure
     image: bushub/bushub-booking:0.0.1-SNAPSHOT
     container_name: bushub-booking
     ports:
@@ -73,6 +71,8 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=dev
       - SPRING_CONFIG_IMPORT=optional:configserver:http://172.17.0.1:9000/config
+    networks:
+      - backend
 
 networks:
   backend:
