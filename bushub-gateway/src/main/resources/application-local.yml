@@ -5,10 +5,6 @@ spring:
 
   cloud:
     gateway:
-#      discovery:
-#        locator:
-#          enabled: true
-#          lower-case-service-id: true
       routes:
         - id: bushub-core
           uri: lb://bushub-core
@@ -23,15 +19,6 @@ spring:
           filters:
             - RewritePath=/booking/(?<path>.*), /$\{path}
 
-
-eureka:
-  client:
-    preferIpAddress: true
-    registerWithEureka: true
-    fetchRegistry: true
-    serviceUrl:
-      defaultZone: http://localhost:9001/eureka
-
 management:
   endpoints:
     web:
@@ -40,3 +27,11 @@ management:
   endpoint:
     gateway:
       enabled: true
+
+eureka:
+  client:
+    preferIpAddress: true
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:9001/eureka
