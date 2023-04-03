@@ -24,6 +24,24 @@ services:
         aliases:
           - "bushub-discovery"
 
+  bushub-gateway:
+    image: bushub/bushub-gateway:0.0.1-SNAPSHOT
+    container_name: bushub-gateway
+    depends_on:
+      bushub-config:
+        condition: service_started
+      bushub-discovery:
+        condition: service_started
+    ports:
+      - 9002:9002
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://172.17.0.1:9000/config
+    networks:
+      backend:
+        aliases:
+          - "bushub-gateway"
+
   bushub-core:
     depends_on:
       bushub-config:
@@ -37,7 +55,6 @@ services:
       - 9003:9003
     environment:
       - SPRING_PROFILES_ACTIVE=dev
-      - SPRING_CONFIG_IMPORT=optional:configserver:http://172.17.0.1:9000/config
 
 #    networks:
 #      - backend
