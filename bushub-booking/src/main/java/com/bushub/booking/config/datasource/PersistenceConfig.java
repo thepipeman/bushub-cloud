@@ -1,4 +1,4 @@
-package com.bushub.booking.config;
+package com.bushub.booking.config.datasource;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;

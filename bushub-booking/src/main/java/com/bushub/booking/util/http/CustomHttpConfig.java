@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class CustomHttpConfig {
 
+  // Inject JWT authentication here motherfucker
   @Bean
   public RequestInterceptor requestInterceptor() {
     return requestTemplate -> {
@@ -19,5 +20,4 @@ public class CustomHttpConfig {
       log.debug("Request headers: {}", UserContextHolder.getContext().getCorrelationId());
     };
   }
-
 }
