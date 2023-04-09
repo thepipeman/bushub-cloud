@@ -1,5 +1,6 @@
 package com.bushub.core.management.user;
 
+import com.bushub.security.common.method.AdminScope;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
+@AdminScope
 @RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
