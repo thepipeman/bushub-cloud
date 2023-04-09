@@ -42,14 +42,13 @@ public class CustomerTripService {
       return null;
     }
 
-//    randomlyRunLong();
     final var customerBookedTrip = customerBookingClient.getTripByReferenceNumber(refNumber);
     log.info("CustomerBookedTrip {}", customerBookedTrip);
     return customerBookedTrip;
   }
 
   private CustomerBookedTrip customerTripByRefFallback(String refNumber, Throwable t) {
-    log.warn("Unable to fetch customer trip for reference number {}", refNumber);
+    log.warn("Unable to fetch customer trip for reference number {}, caused by {}", refNumber, t.getMessage());
     return null;
   }
 

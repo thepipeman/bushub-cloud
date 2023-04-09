@@ -2,13 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.0.4</version>
-    <relativePath/> <!-- lookup parent from repository -->
-  </parent>
-
   <groupId>com.bushub</groupId>
   <artifactId>bushub-core</artifactId>
   <version>0.0.1-SNAPSHOT</version>
@@ -20,6 +13,13 @@
     <docker.image.prefix>bushub</docker.image.prefix>
     <spring-cloud.version>2022.0.1</spring-cloud.version>
   </properties>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.0.5</version>
+    <relativePath/> <!-- lookup parent from repository -->
+  </parent>
 
   <dependencies>
     <!-- spring start -->
@@ -53,6 +53,20 @@
       <artifactId>spring-retry</artifactId>
       <version>2.0.0</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-oauth2-jose</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+
 
     <!-- spring end -->
 
@@ -92,6 +106,11 @@
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
 
+    <dependency>
+      <groupId>com.bushub</groupId>
+      <artifactId>bushub-security</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
     <!-- others start -->
 
     <dependency>
@@ -191,7 +210,7 @@
             <phase>install</phase>
             <goals>
               <goal>build</goal>
-<!--              <goal>push</goal>-->
+              <!--              <goal>push</goal>-->
             </goals>
           </execution>
         </executions>

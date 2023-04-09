@@ -3,6 +3,13 @@ spring:
     # not working with docker compose, so the config server is explicitly set here
     import: optional:configserver:http://localhost:9000/config
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9100/realms/bushub-cloud
+          jwk-set-uri: http://localhost:9100/realms/bushub-cloud/protocol/openid-connect/certs
+
 eureka:
   client:
     preferIpAddress: true
@@ -52,6 +59,7 @@ logging:
   level:
     org.springframework.web: DEBUG
     com.bushub: TRACE
+    com.bushub.booking.trip.CustomerBookingClient: TRACE
 
 bushub:
   core:

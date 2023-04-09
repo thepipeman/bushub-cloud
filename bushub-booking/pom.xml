@@ -11,7 +11,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.0.4</version>
+    <version>3.0.5</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
 
@@ -80,6 +80,19 @@
       <artifactId>spring-cloud-starter-openfeign</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-oauth2-jose</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+
     <!-- spring end -->
 
     <!-- bus hub -->
@@ -87,6 +100,12 @@
     <dependency>
       <groupId>com.bushub</groupId>
       <artifactId>bushub-commons</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.bushub</groupId>
+      <artifactId>bushub-security</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
 

@@ -19,5 +19,4 @@ public class CustomerTripController {
   public CustomerBookedTrip readByRefNumber(@PathVariable("refNumber") String refNumber) throws TimeoutException {
     return customerTripService.readByReferenceNumber(refNumber);
   }
-
 }

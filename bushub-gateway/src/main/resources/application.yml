@@ -17,12 +17,14 @@ spring:
             - Path=/core/**
           filters:
             - RewritePath=/core/(?<path>.*), /$\{path}
+            - RemoveRequestHeader= Cookie,Set-Cookie
         - id: bushub-booking
           uri: lb://bushub-booking
           predicates:
             - Path=/booking/**
           filters:
             - RewritePath=/booking/(?<path>.*), /$\{path}
+            - RemoveRequestHeader= Cookie,Set-Cookie
 
 management:
   endpoints:
