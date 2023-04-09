@@ -59,6 +59,7 @@ logging:
   level:
     org.springframework.web: DEBUG
     com.bushub: TRACE
+    com.bushub.booking.trip.CustomerBookingClient: TRACE
 
 bushub:
   core:
