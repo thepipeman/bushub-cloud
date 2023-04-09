@@ -1,4 +1,4 @@
-package com.bushub.commons.user;
+package com.bushub.security.common.user;
 
 public enum UserRole {
   CUSTOMER,

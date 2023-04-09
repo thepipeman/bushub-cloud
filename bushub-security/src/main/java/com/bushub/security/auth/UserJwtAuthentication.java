@@ -1,6 +1,6 @@
-package com.bushub.commons.security.auth;
+package com.bushub.security.auth;
 
-import com.bushub.commons.user.UserRole;
+import com.bushub.security.common.user.UserRole;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;

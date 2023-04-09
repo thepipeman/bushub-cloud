@@ -1,7 +1,7 @@
-package com.bushub.commons.security.jwt;
+package com.bushub.security.jwt;
 
-import com.bushub.commons.security.auth.UserJwtAuthentication;
-import com.bushub.commons.user.UserRole;
+import com.bushub.security.auth.UserJwtAuthentication;
+import com.bushub.security.common.user.UserRole;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import lombok.NonNull;

@@ -1,6 +1,6 @@
 package com.bushub.booking.config.security;
 
-import com.bushub.commons.security.jwt.BushubJwtAuthConverter;
+import com.bushub.security.jwt.BushubJwtAuthConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +15,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class OAuth2ResourceServerSecurityConfig {
 
+  private static final String SCOPE_BOOKING = "SCOPE_booking";
+
   private final BushubJwtAuthConverter bushubJwtAuthConverter;
 
   @Bean
@@ -22,7 +24,9 @@ public class OAuth2ResourceServerSecurityConfig {
     httpSecurity
       .authorizeHttpRequests()
       .anyRequest()
-      .hasAnyAuthority("ROLE_CUSTOMER", "SCOPE_booking")
+      // initial version is only customer can access this
+      // TODO: ADMIN access for customer entities
+      .hasAuthority(SCOPE_BOOKING)
       .and()
       .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwtConfigurer ->
           jwtConfigurer.jwtAuthenticationConverter(bushubJwtAuthConverter)
