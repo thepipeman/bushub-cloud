@@ -30,7 +30,9 @@ public class BushubJwtAuthConverter implements Converter<Jwt, AbstractAuthentica
 
   @Override
   public AbstractAuthenticationToken convert(@NonNull Jwt jwt) {
-    // TODO  extend JwtGrantedAuthoritiesConverter  -> make use of ROLES as well.
+    // TODO:
+    // extend JwtGrantedAuthoritiesConverter  -> make use of ROLES as well. or;
+    // append the roles to the authorities
     Collection<GrantedAuthority> authorities = jwtGrantedAuthoritiesConverter.convert(jwt);
     log.debug("Security - authorities detected {}", authorities);
     final String principalClaimValue = jwt.getClaimAsString(OAuth2TokenIntrospectionClaimNames.USERNAME);
