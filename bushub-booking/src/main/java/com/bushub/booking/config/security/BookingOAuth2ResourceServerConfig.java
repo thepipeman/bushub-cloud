@@ -13,7 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class OAuth2ResourceServerSecurityConfig {
+public class BookingOAuth2ResourceServerConfig {
 
   private static final String SCOPE_BOOKING = "SCOPE_booking";
 

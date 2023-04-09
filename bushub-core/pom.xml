@@ -54,6 +54,20 @@
       <version>2.0.0</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-oauth2-jose</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+
+
     <!-- spring end -->
 
     <!-- persistence -->
@@ -92,6 +106,11 @@
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
 
+    <dependency>
+      <groupId>com.bushub</groupId>
+      <artifactId>bushub-security</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
     <!-- others start -->
 
     <dependency>

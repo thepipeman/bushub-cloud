@@ -48,7 +48,7 @@ public class CustomerTripService {
   }
 
   private CustomerBookedTrip customerTripByRefFallback(String refNumber, Throwable t) {
-    log.warn("Unable to fetch customer trip for reference number {}", refNumber);
+    log.warn("Unable to fetch customer trip for reference number {}, caused by {}", refNumber, t.getMessage());
     return null;
   }
 
