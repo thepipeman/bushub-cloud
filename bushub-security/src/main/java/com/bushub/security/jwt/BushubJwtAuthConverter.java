@@ -11,6 +11,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.core.OAuth2TokenIntrospectionClaimNames;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
 public class BushubJwtAuthConverter implements Converter<Jwt, AbstractAuthenticationToken> {
 
   private static final String AUTHORITIES_CLAIM = "authorities";
+  private static final String AUTHORITIES_ROLE_PREFIX = "ROLE_";
 
   private final Converter<Jwt, Collection<GrantedAuthority>> jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
 
@@ -38,6 +40,7 @@ public class BushubJwtAuthConverter implements Converter<Jwt, AbstractAuthentica
     final String principalClaimValue = jwt.getClaimAsString(OAuth2TokenIntrospectionClaimNames.USERNAME);
     final String subClaimValue = jwt.getClaimAsString(OAuth2TokenIntrospectionClaimNames.SUB);
     final UserRole role = getRole(jwt);
+    appendRolesInAuthorities(authorities, role);
 
     return new UserJwtAuthentication(
       jwt,
@@ -65,4 +68,8 @@ public class BushubJwtAuthConverter implements Converter<Jwt, AbstractAuthentica
     return UserRole.valueOf(commonRoles.get(0));
   }
 
+  private void appendRolesInAuthorities(Collection<GrantedAuthority> authorities, UserRole role) {
+    final String roleAuthority = AUTHORITIES_ROLE_PREFIX.concat(role.name());
+    authorities.add(new SimpleGrantedAuthority(roleAuthority));
+  }
 }
