@@ -7,8 +7,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:9100/realms/bushub-cloud
-          jwk-set-uri: http://localhost:9100/realms/bushub-cloud/protocol/openid-connect/certs
+          issuer-uri: http://host.docker.internal:9100/realms/bushub-cloud
+          jwk-set-uri: http://host.docker.internal:9100/realms/bushub-cloud/protocol/openid-connect/certs
 
 
 eureka:
