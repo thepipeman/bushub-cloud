@@ -1,6 +1,6 @@
-package com.bushub.booking.trip;
+package com.bushub.booking.customer.trip;
 
-import com.bushub.booking.customer.Customer;
+import com.bushub.booking.customer.info.Customer;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

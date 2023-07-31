@@ -1,6 +1,5 @@
 package com.bushub.core.bus;
 
-import com.bushub.security.common.method.AdminScope;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections4.CollectionUtils;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-@AdminScope
 @RestController
 @RequestMapping("/buses")
 @RequiredArgsConstructor

@@ -1,4 +1,4 @@
-package com.bushub.core.config.security.auth;
+package com.bushub.security.common.method;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 
@@ -7,8 +7,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+@PreAuthorize("hasAnyAuthority('ROLE_RESERVATION_OFFICER', 'ROLE_ADMIN')")
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
-public @interface AdminEndpoint {
+public @interface OrReservationOfficerEndpoint {
 }

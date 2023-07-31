@@ -9,6 +9,7 @@ import java.io.IOException;
 
 @Slf4j
 public class UserContextInterceptor implements ClientHttpRequestInterceptor {
+
   @Override
   public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution)
     throws IOException {

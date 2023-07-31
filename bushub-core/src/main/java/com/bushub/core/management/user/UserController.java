@@ -1,6 +1,6 @@
 package com.bushub.core.management.user;
 
-import com.bushub.core.config.security.auth.AdminEndpoint;
+import com.bushub.security.common.method.AdminEndpoint;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

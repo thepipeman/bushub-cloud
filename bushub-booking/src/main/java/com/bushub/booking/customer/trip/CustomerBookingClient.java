@@ -1,5 +1,6 @@
-package com.bushub.booking.trip;
+package com.bushub.booking.customer.trip;
 
+import com.bushub.booking.customer.trip.model.CustomerBooking;
 import com.bushub.commons.trip.CustomerBookedTrip;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -15,4 +16,11 @@ public interface CustomerBookingClient {
   )
   CustomerBookedTrip getTripByReferenceNumber(@PathVariable("refNumber") String referenceNumber);
 
+
+  @RequestMapping(
+    method = RequestMethod.GET,
+    value = "/api/bookings",
+    consumes = MediaType.APPLICATION_JSON_VALUE
+  )
+  long bookTrip(@RequestBody CustomerBooking booking);
 }

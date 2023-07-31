@@ -1,4 +1,4 @@
-package com.bushub.booking.customer;
+package com.bushub.booking.customer.info;
 
 import org.springframework.data.repository.CrudRepository;
 

@@ -22,8 +22,8 @@ public class CoreOAuth2ResourceServerConfig {
     httpSecurity
       .authorizeHttpRequests()
       .anyRequest()
-//      .authenticated()
-      .hasAuthority("ROLE_ADMIN")
+      // leave the authorization to roles annotation
+      .fullyAuthenticated()
       .and()
       .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwtConfigurer ->
           jwtConfigurer.jwtAuthenticationConverter(bushubJwtAuthConverter)

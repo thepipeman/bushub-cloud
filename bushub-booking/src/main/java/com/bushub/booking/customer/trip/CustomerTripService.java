@@ -1,4 +1,4 @@
-package com.bushub.booking.trip;
+package com.bushub.booking.customer.trip;
 
 import com.bushub.commons.trip.CustomerBookedTrip;
 import com.google.common.collect.Lists;

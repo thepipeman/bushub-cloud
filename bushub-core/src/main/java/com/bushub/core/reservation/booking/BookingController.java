@@ -18,6 +18,7 @@ public class BookingController {
 
   @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public long reserveBooking(@Valid @RequestBody Booking booking) {
+    // TODO change output, include referenceNumber
     return bookingService.create(booking);
   }
 

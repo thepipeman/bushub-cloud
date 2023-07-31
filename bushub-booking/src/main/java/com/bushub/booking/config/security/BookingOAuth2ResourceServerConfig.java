@@ -24,9 +24,8 @@ public class BookingOAuth2ResourceServerConfig {
     httpSecurity
       .authorizeHttpRequests()
       .anyRequest()
-      // initial version is only customer can access this
-      // TODO: ADMIN access for customer entities
-      .hasAuthority(SCOPE_BOOKING)
+      //
+      .fullyAuthenticated()
       .and()
       .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwtConfigurer ->
           jwtConfigurer.jwtAuthenticationConverter(bushubJwtAuthConverter)

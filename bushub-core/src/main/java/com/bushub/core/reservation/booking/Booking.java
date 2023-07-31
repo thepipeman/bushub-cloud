@@ -52,6 +52,7 @@ public class Booking {
 
   private int seatNumber;
 
+  // TODO: improve this, should be calculated automatically using the Trip
   @NotNull
   private BigDecimal fare;
 
