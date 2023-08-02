@@ -17,11 +17,11 @@ public class BookingService {
 
   private final BookingRepository bookingRepository;
 
-  public Long create(Booking booking) {
+  public Booking create(Booking booking) {
     booking.setReferenceNumber(UUID.randomUUID().toString());
     final var created = bookingRepository.save(booking);
     log.trace("Booking created [id=<{}>]", created.getId());
-    return created.getId();
+    return booking;
   }
 
   @Transactional(readOnly = true)

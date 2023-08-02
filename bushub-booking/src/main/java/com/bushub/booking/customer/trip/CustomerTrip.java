@@ -9,6 +9,7 @@ import lombok.*;
 import java.io.Serializable;
 
 // this should be cached
+@Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

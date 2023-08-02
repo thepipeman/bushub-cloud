@@ -18,6 +18,7 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:9001/eureka
 
+
 resilience4j:
   circuitbreaker:
     customerTripByRef:

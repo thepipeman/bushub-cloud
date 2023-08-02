@@ -1,5 +1,6 @@
 package com.bushub.booking.customer.trip;
 
+import com.bushub.booking.customer.trip.model.CustomerBooking;
 import com.bushub.commons.trip.CustomerBookedTrip;
 import com.google.common.collect.Lists;
 import io.github.resilience4j.retry.annotation.Retry;

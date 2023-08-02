@@ -22,5 +22,5 @@ public interface CustomerBookingClient {
     value = "/api/bookings",
     consumes = MediaType.APPLICATION_JSON_VALUE
   )
-  long bookTrip(@RequestBody CustomerBooking booking);
+  String bookTrip(@RequestBody CustomerBooking booking);
 }

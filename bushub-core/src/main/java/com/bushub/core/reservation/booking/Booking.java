@@ -4,6 +4,7 @@ package com.bushub.core.reservation.booking;
 import com.bushub.core.bus.BusType;
 import com.bushub.core.reservation.trip.Trip;
 import com.bushub.core.reservation.trip.TripStatus;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -44,7 +45,7 @@ public class Booking {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  //  @JsonBackReference
+  @JsonBackReference
   @ManyToOne(fetch = FetchType.LAZY)
   @NotFound(action = NotFoundAction.IGNORE)
   @JoinColumn(name = "trip_id", nullable = false)

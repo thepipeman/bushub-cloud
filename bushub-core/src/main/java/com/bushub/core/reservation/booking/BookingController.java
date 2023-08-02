@@ -17,16 +17,16 @@ public class BookingController {
   private final BookingService bookingService;
 
   @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  public long reserveBooking(@Valid @RequestBody Booking booking) {
+  public String reserveBooking(@Valid @RequestBody Booking booking) {
     // TODO change output, include referenceNumber
-    return bookingService.create(booking);
+    return bookingService.create(booking).getReferenceNumber();
   }
 
   @GetMapping("/{id}")
-  public Booking readBookingById(@PathVariable("id") long id) {
+  public String readBookingById(@PathVariable("id") long id) {
     final var booking = bookingService.readById(id);
     log.info("Booking {}", booking);
-    return booking;
+    return booking.getReferenceNumber();
   }
 
   @GetMapping
