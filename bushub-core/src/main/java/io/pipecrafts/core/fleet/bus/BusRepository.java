@@ -1,7 +1,6 @@
 package io.pipecrafts.core.fleet.bus;
 
 import io.pipecrafts.commons.core.flt.bus.Bus;
-import io.pipecrafts.commons.core.flt.bus.BusType;
 import io.pipecrafts.commons.tools.error.BhResourceNotFoundException;
 import io.pipecrafts.core.jooq.vh.enums.BHBusType;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static io.pipecrafts.core.fleet.BusJooqUtil.convertFromBhBusType;
+import static io.pipecrafts.core.fleet.BusJooqUtil.convertToBhBusType;
 import static io.pipecrafts.core.jooq.vh.tables.BHBus.BUS;
 import static org.jooq.Records.mapping;
 
@@ -27,7 +28,7 @@ public class BusRepository {
 
   public Long create(Bus bus) {
     final var id = dsl.insertInto(BUS)
-      .set(BUS.TYPE, converType(bus.type()))
+      .set(BUS.TYPE, convertToBhBusType(bus.type()))
       .set(BUS.NUMBER, bus.number())
       .set(BUS.PLATE_NUMBER, bus.plateNumber())
       .returning(BUS.ID)
@@ -56,10 +57,6 @@ public class BusRepository {
 
 
   private Bus convert(long id, BHBusType type, String number, String plateNumber) {
-    return new Bus(id, BusType.valueOf(type.name()), number, plateNumber);
-  }
-
-  private BHBusType converType(BusType busType) {
-    return BHBusType.valueOf(busType.name());
+    return new Bus(id, convertFromBhBusType(type), number, plateNumber);
   }
 }

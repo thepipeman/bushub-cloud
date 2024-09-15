@@ -1,10 +1,20 @@
 package io.pipecrafts.core.trp.route;
 
+import io.pipecrafts.commons.core.trp.route.Route;
+import io.pipecrafts.commons.tools.error.BhResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.jooq.DSLContext;
+import org.jooq.impl.DSL;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.UUID;
+
+import static io.pipecrafts.core.jooq.trp.tables.BHRoute.ROUTE;
+import static org.jooq.Records.mapping;
 
 @Slf4j
 @Repository
@@ -14,5 +24,53 @@ public class RouteRepository {
 
   private final DSLContext dsl;
 
-//  public Long create()
+  // ref: https://github.com/pkainulainen/jooq-with-spring-examples/blob/master/jooq-only/src/main/java/net/petrikainulainen/spring/jooq/todo/repository/JOOQTodoRepository.java
+  public Long create(Route route) {
+    final var code = StringUtils.isNotBlank(route.code()) ? route.code() : UUID.randomUUID().toString();
+    final var id = dsl.insertInto(ROUTE)
+      .set(ROUTE.ORIGIN, route.origin())
+      .set(ROUTE.DESTINATION, route.destination())
+      .set(ROUTE.DISTANCE, route.distance())
+      .set(ROUTE.CODE, code)
+      .returning(ROUTE.ID)
+      .fetchAny(ROUTE.ID);
+
+    log.trace("Route created {}", id);
+    return id;
+  }
+
+  @Transactional(readOnly = true)
+  public List<Route> selectAll() {
+    return dsl.select(ROUTE.ID, ROUTE.ORIGIN, ROUTE.DESTINATION, ROUTE.DISTANCE, ROUTE.CODE)
+      .from(ROUTE)
+      .fetch(mapping(Route::new));
+  }
+
+  public List<Route> selectByCriteria(RouteCriteria criteria) {
+    var condition = DSL.noCondition();
+
+    if (StringUtils.isNotBlank(criteria.origin())) {
+      condition = condition.and(ROUTE.ORIGIN.eq(criteria.origin()));
+    }
+
+    if (StringUtils.isNotBlank(criteria.destination())) {
+      condition = condition.and(ROUTE.DESTINATION.eq(criteria.destination()));
+    }
+
+    return dsl.select(ROUTE.ID, ROUTE.ORIGIN, ROUTE.DESTINATION, ROUTE.DISTANCE, ROUTE.CODE)
+      .from(ROUTE)
+      .where(condition)
+      .fetch(mapping(Route::new));
+  }
+
+  @Transactional(readOnly = true)
+  public Route readById(long id) {
+    final var optionalRoute = dsl.select(ROUTE.ID, ROUTE.ORIGIN, ROUTE.DESTINATION, ROUTE.DISTANCE, ROUTE.CODE)
+      .from(ROUTE)
+      .where(ROUTE.ID.eq(id))
+      .fetchOptional(mapping(Route::new));
+
+    return optionalRoute.orElseThrow(() -> BhResourceNotFoundException.ofId(Route.class, id));
+  }
+
 }
