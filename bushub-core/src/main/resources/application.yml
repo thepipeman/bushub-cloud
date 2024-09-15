@@ -26,3 +26,12 @@ spring:
     mixed: true
     out-of-order: true
     table: schema_version
+
+
+logging:
+  ignore-get-requests: true
+  shorten-stacktrace: true
+  log-request-details-on-error: true
+  pattern:
+    console: "%clr(%d){faint} %clr(%level) [%clr(%X{requestId}){magenta}] %clr(%logger{35}){cyan}: %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss,SSS} %level [%X{requestId}][%clr(%X{sid}){boldGreen}] %logger{35}: %msg%n"

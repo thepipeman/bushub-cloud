@@ -2,6 +2,7 @@ package io.pipecrafts.core.fleet.bus;
 
 import io.pipecrafts.commons.core.flt.bus.Bus;
 import io.pipecrafts.commons.core.flt.bus.BusType;
+import io.pipecrafts.commons.tools.error.BhResourceNotFoundException;
 import io.pipecrafts.core.jooq.vh.enums.BHBusType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,7 +51,7 @@ public class BusRepository {
       .where(BUS.ID.equal(id))
       .fetchOptional(mapping(this::convert));
 
-    return optionalBus.orElseThrow(() -> new RuntimeException("Bus with ID not found"));
+    return optionalBus.orElseThrow(() -> BhResourceNotFoundException.ofId(Bus.class, id));
   }
 
 
