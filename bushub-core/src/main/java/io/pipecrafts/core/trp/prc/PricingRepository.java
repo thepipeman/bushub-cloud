@@ -1,21 +1,16 @@
 package io.pipecrafts.core.trp.prc;
 
-import io.pipecrafts.commons.core.flt.bus.Bus;
 import io.pipecrafts.commons.core.flt.bus.BusType;
 import io.pipecrafts.commons.core.trp.prc.Pricing;
 import io.pipecrafts.commons.tools.error.BhResourceNotFoundException;
-import io.pipecrafts.core.jooq.vh.enums.BHBusType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.List;
 
-import static io.pipecrafts.core.fleet.BusJooqUtil.convertFromBhBusType;
-import static io.pipecrafts.core.fleet.BusJooqUtil.convertToBhBusType;
 import static io.pipecrafts.core.jooq.trp.tables.BHPricing.PRICING;
 import static org.jooq.Records.mapping;
 

@@ -3,8 +3,6 @@ package io.pipecrafts.core.trp.schd;
 import io.pipecrafts.commons.core.flt.bus.BusType;
 import io.pipecrafts.commons.core.trp.route.Route;
 import io.pipecrafts.commons.core.trp.schd.Schedule;
-import io.pipecrafts.core.fleet.BusJooqUtil;
-import io.pipecrafts.core.jooq.vh.enums.BHBusType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jooq.DSLContext;
@@ -14,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalTime;
 import java.util.List;
 
-import static io.pipecrafts.core.fleet.BusJooqUtil.convertFromBhBusType;
 import static io.pipecrafts.core.jooq.trp.tables.BHRoute.ROUTE;
 import static io.pipecrafts.core.jooq.trp.tables.BHSchedule.SCHEDULE;
 import static org.jooq.Records.mapping;
@@ -51,8 +48,7 @@ public class ScheduleRepository {
       .fetch(mapping(this::convert));
   }
 
-  // the problem is with enum bus type
-  // TODO play around enum converter
+  // TODO: Check how to use nested objects properly
   private Schedule convert(
     long id, long routeId, LocalTime departureTime, BusType busType,
     String origin, String destination, Integer distance, String code

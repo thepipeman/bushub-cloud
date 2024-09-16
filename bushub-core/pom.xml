@@ -213,7 +213,10 @@
                   <forcedType>
                     <userType>io.pipecrafts.commons.core.flt.bus.BusType</userType>
                     <enumConverter>true</enumConverter>
-                    <includeExpression>.*\.BUS_TYPE</includeExpression>
+                    <includeExpression>
+                      .*\.BUS_TYPE
+                      | .*\BUS.TYPE
+                    </includeExpression>
                   </forcedType>
                 </forcedTypes>
 
