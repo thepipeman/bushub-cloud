@@ -179,43 +179,55 @@
           </dependency>
 
         </dependencies>
+
         <executions>
           <execution>
-            <id>generate-jooq-sources</id>
+            <!--            <id>generate-jooq-sources</id>-->
+            <id>default-cli</id>
             <goals>
               <goal>generate</goal>
             </goals>
             <phase>generate-sources</phase>
-            <configuration>
-              <database>
-                <type>POSTGRES</type>
-                <containerImage>postgres:16-alpine</containerImage>
-              </database>
-              <flyway>
-                <locations>filesystem:src/main/resources/schema</locations>
-              </flyway>
-              <jooq>
-                <generator>
-                  <database>
-                    <includes>.*</includes>
-                    <excludes>
-                      flyway_schema_history
-                      | pg_catalog.*
-                      | information_schema.*
-                    </excludes>
-                  </database>
-                  <target>
-                    <packageName>io.pipecrafts.core.jooq</packageName>
-                    <directory>target/generated-sources/jooq</directory>
-                  </target>
-                  <strategy>
-                    <name>io.pipecrafts.commons.jooq.BHPrefixGeneratorStrategy</name>
-                  </strategy>
-                </generator>
-              </jooq>
-            </configuration>
           </execution>
         </executions>
+
+        <configuration>
+          <database>
+            <type>POSTGRES</type>
+            <containerImage>postgres:16-alpine</containerImage>
+          </database>
+          <flyway>
+            <locations>filesystem:src/main/resources/schema</locations>
+          </flyway>
+          <jooq>
+            <generator>
+              <database>
+                <includes>.*</includes>
+                <excludes>
+                  flyway_schema_history
+                  | pg_catalog.*
+                  | information_schema.*
+                </excludes>
+
+                <forcedTypes>
+                  <forcedType>
+                    <userType>io.pipecrafts.commons.core.flt.bus.BusType</userType>
+                    <enumConverter>true</enumConverter>
+                    <includeExpression>.*\.BUS_TYPE</includeExpression>
+                  </forcedType>
+                </forcedTypes>
+
+              </database>
+              <target>
+                <packageName>io.pipecrafts.core.jooq</packageName>
+                <directory>target/generated-sources/jooq</directory>
+              </target>
+              <strategy>
+                <name>io.pipecrafts.commons.jooq.BHPrefixGeneratorStrategy</name>
+              </strategy>
+            </generator>
+          </jooq>
+        </configuration>
       </plugin>
 
     </plugins>

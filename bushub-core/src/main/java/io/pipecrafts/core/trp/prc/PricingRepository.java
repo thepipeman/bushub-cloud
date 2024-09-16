@@ -31,7 +31,7 @@ public class PricingRepository {
     final var id = dsl.insertInto(PRICING)
       .set(PRICING.BASE_FARE, pricing.baseFare())
       .set(PRICING.PER_KM_FARE, pricing.perKmFare())
-      .set(PRICING.BUS_TYPE, convertToBhBusType(pricing.busType()))
+      .set(PRICING.BUS_TYPE, pricing.busType())
       .returning(PRICING.ID)
       .fetchAny(PRICING.ID);
 
@@ -43,21 +43,18 @@ public class PricingRepository {
   public List<Pricing> selectAll() {
     return dsl.select(PRICING.ID, PRICING.BASE_FARE, PRICING.PER_KM_FARE, PRICING.BUS_TYPE)
       .from(PRICING)
-      .fetch(mapping(this::convert));
+      .fetch(mapping(Pricing::new));
   }
 
   @Transactional(readOnly = true)
   public Pricing selectByBusType(BusType busType) {
     final var optionalPricing = dsl.select(PRICING.ID, PRICING.BASE_FARE, PRICING.PER_KM_FARE, PRICING.BUS_TYPE)
       .from(PRICING)
-      .where(PRICING.BUS_TYPE.equal(convertToBhBusType(busType)))
-      .fetchOptional(mapping(this::convert));
+      .where(PRICING.BUS_TYPE.equal(busType))
+      .fetchOptional(mapping(Pricing::new));
 
     return optionalPricing.orElseThrow(() -> new BhResourceNotFoundException(Pricing.class, "busType", busType.name()));
 
   }
 
-  private Pricing convert(long id, BigDecimal baseFare, BigDecimal perKmFare, BHBusType bhBusType) {
-    return new Pricing(id, baseFare, perKmFare, convertFromBhBusType(bhBusType));
-  }
 }
