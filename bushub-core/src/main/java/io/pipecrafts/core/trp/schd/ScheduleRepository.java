@@ -15,6 +15,7 @@ import java.util.List;
 import static io.pipecrafts.core.jooq.trp.tables.BHRoute.ROUTE;
 import static io.pipecrafts.core.jooq.trp.tables.BHSchedule.SCHEDULE;
 import static org.jooq.Records.mapping;
+import static org.jooq.impl.DSL.row;
 
 @Slf4j
 @Repository
@@ -41,11 +42,12 @@ public class ScheduleRepository {
   public List<Schedule> selectAll() {
 
     return dsl.select(SCHEDULE.ID, SCHEDULE.ROUTE_ID, SCHEDULE.DEPARTURE_TIME, SCHEDULE.BUS_TYPE,
-        ROUTE.ORIGIN, ROUTE.DESTINATION, ROUTE.DISTANCE, ROUTE.CODE)
+        row(ROUTE.ID, ROUTE.ORIGIN, ROUTE.DESTINATION, ROUTE.DISTANCE, ROUTE.CODE).mapping(Route::new)
+      )
       .from(SCHEDULE)
       .join(ROUTE)
       .on(SCHEDULE.field(SCHEDULE.ROUTE_ID).eq(ROUTE.field(ROUTE.ID)))
-      .fetch(mapping(this::convert));
+      .fetch(mapping(Schedule::new));
   }
 
   // TODO: Check how to use nested objects properly
