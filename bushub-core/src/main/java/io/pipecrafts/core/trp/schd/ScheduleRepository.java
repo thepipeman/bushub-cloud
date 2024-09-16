@@ -1,6 +1,5 @@
 package io.pipecrafts.core.trp.schd;
 
-import io.pipecrafts.commons.core.flt.bus.BusType;
 import io.pipecrafts.commons.core.trp.route.Route;
 import io.pipecrafts.commons.core.trp.schd.Schedule;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +8,6 @@ import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalTime;
 import java.util.List;
 
 import static io.pipecrafts.core.jooq.trp.tables.BHRoute.ROUTE;
@@ -48,14 +46,5 @@ public class ScheduleRepository {
       .join(ROUTE)
       .on(SCHEDULE.field(SCHEDULE.ROUTE_ID).eq(ROUTE.field(ROUTE.ID)))
       .fetch(mapping(Schedule::new));
-  }
-
-  // TODO: Check how to use nested objects properly
-  private Schedule convert(
-    long id, long routeId, LocalTime departureTime, BusType busType,
-    String origin, String destination, Integer distance, String code
-  ) {
-    final var route = new Route(routeId, origin, destination, distance, code);
-    return new Schedule(id, routeId, departureTime, busType, route);
   }
 }
