@@ -36,6 +36,7 @@ public class ScheduleRepository {
     return id;
   }
 
+  // TODO: eventually improve with pagination
   @Transactional(readOnly = true)
   public List<Schedule> selectAll() {
 

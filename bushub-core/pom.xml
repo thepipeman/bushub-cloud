@@ -218,6 +218,13 @@
                       | .*\BUS.TYPE
                     </includeExpression>
                   </forcedType>
+
+                  <forcedType>
+                    <userType>io.pipecrafts.commons.core.trp.domain.TripStatus</userType>
+                    <enumConverter>true</enumConverter>
+                    <includeExpression>.*TRIP.STATUS</includeExpression>
+                  </forcedType>
+
                 </forcedTypes>
 
               </database>
