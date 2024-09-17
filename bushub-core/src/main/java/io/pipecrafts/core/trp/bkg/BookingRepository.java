@@ -1,9 +1,9 @@
 package io.pipecrafts.core.trp.bkg;
 
 import io.pipecrafts.commons.core.trp.bkg.Booking;
-import io.pipecrafts.core.jooq.trp.tables.BHBooking;
+import io.pipecrafts.commons.core.trp.bkg.BookingInput;
+import io.pipecrafts.commons.tools.error.BhResourceNotFoundException;
 import io.pipecrafts.core.trp.PricingService;
-import io.pipecrafts.core.trp.ScheduleService;
 import io.pipecrafts.core.trp.TripService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +15,11 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 import static io.pipecrafts.core.jooq.trp.tables.BHBooking.BOOKING;
+import static io.pipecrafts.core.jooq.trp.tables.BHRoute.ROUTE;
+import static io.pipecrafts.core.jooq.trp.tables.BHSchedule.SCHEDULE;
+import static io.pipecrafts.core.jooq.trp.tables.BHTrip.TRIP;
+import static io.pipecrafts.core.jooq.vh.tables.BHBus.BUS;
+import static org.jooq.Records.mapping;
 
 @Slf4j
 @Transactional
@@ -28,7 +33,7 @@ public class BookingRepository {
   private final PricingService pricingService;
   private final TripService tripService;
 
-  public Long create(Booking booking) {
+  public Long create(BookingInput booking) {
     final var id = dsl.insertInto(BOOKING)
       .set(BOOKING.TRIP_ID, booking.tripId())
       .set(BOOKING.FARE, calculateFare(booking.tripId()))
@@ -43,9 +48,28 @@ public class BookingRepository {
     return id;
   }
 
-//  public Booking readById(long id) {
-//
-//  }
+  @Transactional(readOnly = true)
+  public Booking readById(long id) {
+    final var optionalBooking = dsl.select(BOOKING.ID, BOOKING.REFERENCE_NUMBER,
+        BOOKING.SEAT_NUMBER, BOOKING.FARE, BOOKING.CUSTOMER_NAME,
+        BOOKING.STATUS, TRIP.DEPARTURE_DATE, SCHEDULE.DEPARTURE_TIME,
+        ROUTE.ORIGIN, ROUTE.DESTINATION, ROUTE.DISTANCE,
+        SCHEDULE.BUS_TYPE, BUS.NUMBER)
+      .from(BOOKING)
+      .join(TRIP)
+      .on(TRIP.field(TRIP.ID).eq(BOOKING.ID))
+      .join(SCHEDULE)
+      .on(SCHEDULE.field(SCHEDULE.ID).eq(TRIP.field(TRIP.SCHEDULE_ID)))
+      .join(ROUTE)
+      .on(ROUTE.field(ROUTE.ID).eq(SCHEDULE.field(SCHEDULE.ROUTE_ID)))
+      .leftJoin(BUS)
+      .on(BUS.field(BUS.ID).eq(TRIP.BUS_ID))
+      .where(BOOKING.field(BOOKING.ID).eq(id))
+      .fetchOptional(mapping(Booking::new));
+
+    return optionalBooking.orElseThrow(() -> BhResourceNotFoundException.ofId(Booking.class, id));
+  }
+
 
   private BigDecimal calculateFare(long tripId) {
     final var trip = tripService.readById(tripId);

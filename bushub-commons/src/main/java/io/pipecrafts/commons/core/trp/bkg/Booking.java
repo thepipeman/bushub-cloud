@@ -1,33 +1,24 @@
 package io.pipecrafts.commons.core.trp.bkg;
 
-import io.pipecrafts.commons.core.trp.domain.Trip;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
+import io.pipecrafts.commons.core.flt.bus.BusType;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
-// TODO: use CQRS~ish approach.
 public record Booking(
   Long id,
-
-  @NotNull
-  Long tripId,
-
-  @NotNull
-  @Min(1)
-  Integer seatNumber,
-
-  // calculated in service layer
-  BigDecimal fare,
-
-  String customerName,
-
-  @NotNull
-  BookingStatus status,
-
-  // generated on serviceLayer
   String referenceNumber,
-
-  Trip trip
+  int seatNumber,
+  BigDecimal fare,
+  String customerName,
+  BookingStatus status,
+  LocalDate departureDate,
+  LocalTime departureTime,
+  String origin,
+  String destination,
+  int distance,
+  BusType busType,
+  String busNumber
 ) {
 }
