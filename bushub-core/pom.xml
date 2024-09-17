@@ -225,6 +225,12 @@
                     <includeExpression>.*TRIP.STATUS</includeExpression>
                   </forcedType>
 
+                  <forcedType>
+                    <userType>io.pipecrafts.commons.core.trp.bkg.BookingStatus</userType>
+                    <enumConverter>true</enumConverter>
+                    <includeExpression>.*BOOKING.STATUS</includeExpression>
+                  </forcedType>
+
                 </forcedTypes>
 
               </database>

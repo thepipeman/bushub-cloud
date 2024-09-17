@@ -2,6 +2,7 @@ package io.pipecrafts.core.trp.schd;
 
 import io.pipecrafts.commons.core.trp.route.Route;
 import io.pipecrafts.commons.core.trp.schd.Schedule;
+import io.pipecrafts.commons.tools.error.BhResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jooq.DSLContext;
@@ -47,5 +48,19 @@ public class ScheduleRepository {
       .join(ROUTE)
       .on(SCHEDULE.field(SCHEDULE.ROUTE_ID).eq(ROUTE.field(ROUTE.ID)))
       .fetch(mapping(Schedule::new));
+  }
+
+  @Transactional(readOnly = true)
+  public Schedule selectById(long id) {
+    final var optionalSchedule = dsl.select(SCHEDULE.ID, SCHEDULE.ROUTE_ID, SCHEDULE.DEPARTURE_TIME, SCHEDULE.BUS_TYPE,
+        row(ROUTE.ID, ROUTE.ORIGIN, ROUTE.DESTINATION, ROUTE.DISTANCE, ROUTE.CODE).mapping(Route::new)
+      )
+      .from(SCHEDULE)
+      .join(ROUTE)
+      .on(SCHEDULE.field(SCHEDULE.ROUTE_ID).eq(ROUTE.field(ROUTE.ID)))
+      .where(SCHEDULE.field(SCHEDULE.ID).eq(id))
+      .fetchOptional(mapping(Schedule::new));
+
+    return optionalSchedule.orElseThrow(() -> BhResourceNotFoundException.ofId(Schedule.class, id));
   }
 }

@@ -1,0 +1,2 @@
+ALTER TABLE trp.booking
+    ALTER COLUMN fare TYPE NUMERIC;
