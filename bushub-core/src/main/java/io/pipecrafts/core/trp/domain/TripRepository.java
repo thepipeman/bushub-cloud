@@ -52,23 +52,23 @@ public class TripRepository {
   @Transactional(readOnly = true)
   public PageData<Trip> selectTripsByCriteria(TripSearchCriteria criteria) {
     var condition = DSL.noCondition();
-//
-    if (criteria.getScheduleId() != null) {
-      condition = condition.and(TRIP.SCHEDULE_ID.eq(criteria.getScheduleId()));
+
+    if (criteria.scheduleId() != null) {
+      condition = condition.and(TRIP.SCHEDULE_ID.eq(criteria.scheduleId()));
     }
-//
-    if (criteria.getDepartureDate() != null) {
-      condition = condition.and(TRIP.DEPARTURE_DATE.eq(criteria.getDepartureDate()));
+
+    if (criteria.departureDate() != null) {
+      condition = condition.and(TRIP.DEPARTURE_DATE.eq(criteria.departureDate()));
     }
 
     final var data = selectTrips()
       .where(condition)
       .orderBy(TRIP.ID.desc())
-      .limit(criteria.getPageSize())
-      .offset(criteria.getOffset())
+      .limit(criteria.pageSize())
+      .offset(criteria.offSet())
       .fetch(mapping(Trip::new));
 
-    return PageData.of(criteria.getPageNumber(), data);
+    return PageData.of(criteria.pageNumber(), data);
   }
 
   @Transactional(readOnly = true)

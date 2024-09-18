@@ -1,6 +1,8 @@
 package io.pipecrafts.core.trp.route;
 
 import io.pipecrafts.commons.core.trp.route.Route;
+import io.pipecrafts.commons.core.trp.route.RouteCriteria;
+import io.pipecrafts.commons.data.page.PageData;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +25,7 @@ public class RouteController {
 
 
   @GetMapping
-  public List<Route> getRoutes(@Valid RouteCriteria routeCriteria) {
+  public PageData<Route> getRoutes(@Valid RouteCriteria routeCriteria) {
     return routeRepository.selectByCriteria(routeCriteria);
   }
 

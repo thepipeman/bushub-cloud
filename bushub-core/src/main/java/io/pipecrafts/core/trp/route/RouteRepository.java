@@ -1,6 +1,8 @@
 package io.pipecrafts.core.trp.route;
 
 import io.pipecrafts.commons.core.trp.route.Route;
+import io.pipecrafts.commons.core.trp.route.RouteCriteria;
+import io.pipecrafts.commons.data.page.PageData;
 import io.pipecrafts.commons.tools.error.BhResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,13 +42,7 @@ public class RouteRepository {
   }
 
   @Transactional(readOnly = true)
-  public List<Route> selectAll() {
-    return dsl.select(ROUTE.ID, ROUTE.ORIGIN, ROUTE.DESTINATION, ROUTE.DISTANCE, ROUTE.CODE)
-      .from(ROUTE)
-      .fetch(mapping(Route::new));
-  }
-
-  public List<Route> selectByCriteria(RouteCriteria criteria) {
+  public PageData<Route> selectByCriteria(RouteCriteria criteria) {
     var condition = DSL.noCondition();
 
     if (StringUtils.isNotBlank(criteria.origin())) {
@@ -57,10 +53,15 @@ public class RouteRepository {
       condition = condition.and(ROUTE.DESTINATION.eq(criteria.destination()));
     }
 
-    return dsl.select(ROUTE.ID, ROUTE.ORIGIN, ROUTE.DESTINATION, ROUTE.DISTANCE, ROUTE.CODE)
+    final var data = dsl.select(ROUTE.ID, ROUTE.ORIGIN, ROUTE.DESTINATION, ROUTE.DISTANCE, ROUTE.CODE)
       .from(ROUTE)
       .where(condition)
+      .orderBy(ROUTE.ID.desc())
+      .limit(criteria.pageSize())
+      .offset(criteria.offSet())
       .fetch(mapping(Route::new));
+
+    return PageData.of(criteria.pageNumber(), data);
   }
 
   @Transactional(readOnly = true)

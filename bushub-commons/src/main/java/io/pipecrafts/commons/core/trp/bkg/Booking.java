@@ -8,6 +8,7 @@ import java.time.LocalTime;
 
 public record Booking(
   Long id,
+  Long tripId,
   String referenceNumber,
   int seatNumber,
   BigDecimal fare,
