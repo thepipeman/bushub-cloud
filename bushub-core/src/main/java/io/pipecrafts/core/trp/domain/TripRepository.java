@@ -5,6 +5,7 @@ import io.pipecrafts.commons.core.trp.domain.TripSearchCriteria;
 import io.pipecrafts.commons.core.trp.domain.TripStatus;
 import io.pipecrafts.commons.core.trp.route.Route;
 import io.pipecrafts.commons.core.trp.schd.Schedule;
+import io.pipecrafts.commons.data.page.PageData;
 import io.pipecrafts.commons.tools.error.BhResourceNotFoundException;
 import io.pipecrafts.core.jooq.trp.tables.BHSchedule;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ import static io.pipecrafts.core.jooq.trp.tables.BHRoute.ROUTE;
 import static io.pipecrafts.core.jooq.trp.tables.BHSchedule.SCHEDULE;
 import static io.pipecrafts.core.jooq.trp.tables.BHTrip.TRIP;
 import static org.jooq.Records.mapping;
+import static org.jooq.impl.DSL.field;
 import static org.jooq.impl.DSL.row;
 
 @Slf4j
@@ -48,20 +50,25 @@ public class TripRepository {
   }
 
   @Transactional(readOnly = true)
-  public List<Trip> selectTripsByCriteria(TripSearchCriteria criteria) {
+  public PageData<Trip> selectTripsByCriteria(TripSearchCriteria criteria) {
     var condition = DSL.noCondition();
-
-    if (criteria.scheduleId() != null) {
-      condition = condition.and(TRIP.SCHEDULE_ID.eq(criteria.scheduleId()));
+//
+    if (criteria.getScheduleId() != null) {
+      condition = condition.and(TRIP.SCHEDULE_ID.eq(criteria.getScheduleId()));
+    }
+//
+    if (criteria.getDepartureDate() != null) {
+      condition = condition.and(TRIP.DEPARTURE_DATE.eq(criteria.getDepartureDate()));
     }
 
-    if (criteria.departureDate() != null) {
-      condition = condition.and(TRIP.DEPARTURE_DATE.eq(criteria.departureDate()));
-    }
-
-    return selectTrips()
+    final var data = selectTrips()
       .where(condition)
+      .orderBy(TRIP.ID.desc())
+      .limit(criteria.getPageSize())
+      .offset(criteria.getOffset())
       .fetch(mapping(Trip::new));
+
+    return PageData.of(criteria.getPageNumber(), data);
   }
 
   @Transactional(readOnly = true)

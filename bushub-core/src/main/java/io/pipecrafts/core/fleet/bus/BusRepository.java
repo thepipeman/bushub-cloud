@@ -25,7 +25,7 @@ public class BusRepository {
 
   public Long create(Bus bus) {
     final var id = dsl.insertInto(BUS)
-      .set(BUS.TYPE, bus.type())
+      .set(BUS.BUS_TYPE, bus.type())
       .set(BUS.NUMBER, bus.number())
       .set(BUS.PLATE_NUMBER, bus.plateNumber())
       .returning(BUS.ID)
@@ -37,14 +37,14 @@ public class BusRepository {
 
   @Transactional(readOnly = true)
   public List<Bus> selectAll() {
-    return dsl.select(BUS.ID, BUS.TYPE, BUS.NUMBER, BUS.PLATE_NUMBER)
+    return dsl.select(BUS.ID, BUS.BUS_TYPE, BUS.NUMBER, BUS.PLATE_NUMBER)
       .from(BUS)
       .fetch(mapping(Bus::new));
   }
 
   @Transactional(readOnly = true)
   public Bus readById(long id) {
-    final var optionalBus = dsl.select(BUS.ID, BUS.TYPE, BUS.NUMBER, BUS.PLATE_NUMBER)
+    final var optionalBus = dsl.select(BUS.ID, BUS.BUS_TYPE, BUS.NUMBER, BUS.PLATE_NUMBER)
       .from(BUS)
       .where(BUS.ID.equal(id))
       .fetchOptional(mapping(Bus::new));
