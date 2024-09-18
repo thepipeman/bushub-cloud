@@ -1,10 +1,21 @@
 package io.pipecrafts.commons.core.trp.domain;
 
+import io.pipecrafts.commons.data.page.PageCriteria;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
 import java.time.LocalDate;
 
-public record TripSearchCriteria(
-  Long scheduleId,
+@Data
+@SuperBuilder
+@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class TripSearchCriteria extends PageCriteria {
 
-  LocalDate departureDate
-) {
+  private Long scheduleId;
+
+  private LocalDate departureDate;
 }

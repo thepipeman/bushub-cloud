@@ -10,8 +10,8 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>bushub-core</module>
     <module>bushub-commons</module>
+    <module>bushub-core</module>
   </modules>
 
 
