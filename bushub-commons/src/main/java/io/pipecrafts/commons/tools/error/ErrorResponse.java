@@ -3,6 +3,7 @@ package io.pipecrafts.commons.tools.error;
 import lombok.Builder;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 @Builder
 public record ErrorResponse(
@@ -11,6 +12,7 @@ public record ErrorResponse(
   String path,
   String systemVersion,
   String errorCode,
-  String errorMessage
+  String errorMessage,
+  Map<String, Object> attributes
 ) {
 }
