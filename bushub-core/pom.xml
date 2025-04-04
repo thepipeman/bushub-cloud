@@ -11,15 +11,17 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.3.3</version>
+    <version>3.4.4</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
 
   <properties>
     <java.version>21</java.version>
     <spring-modulith.version>1.2.1</spring-modulith.version>
-    <jooq.version>3.19.11</jooq.version>
+    <jooq.version>3.20.3</jooq.version>
+    <bh-commons.version>0.0.1-SNAPSHOT</bh-commons.version>
     <testcontainers-jooq-codegen-maven-plugin.version>0.0.4</testcontainers-jooq-codegen-maven-plugin.version>
+    <springdoc.version>2.8.6</springdoc.version>
   </properties>
 
 
@@ -81,9 +83,20 @@
     <dependency>
       <groupId>io.pipecrafts</groupId>
       <artifactId>bushub-commons</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
+      <version>${bh-commons.version}</version>
     </dependency>
 
+    <!--  DOCUMENTATION   -->
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+      <version>${springdoc.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.therapi</groupId>
+      <artifactId>therapi-runtime-javadoc</artifactId>
+      <version>0.15.0</version>
+    </dependency>
 
     <dependency>
       <groupId>org.springframework.modulith</groupId>
@@ -240,6 +253,20 @@
               </strategy>
             </generator>
           </jooq>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <annotationProcessorPaths>
+            <path>
+              <groupId>com.github.therapi</groupId>
+              <artifactId>therapi-runtime-javadoc-scribe</artifactId>
+              <version>0.15.0</version>
+            </path>
+          </annotationProcessorPaths>
         </configuration>
       </plugin>
 
