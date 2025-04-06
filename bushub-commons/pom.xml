@@ -14,7 +14,7 @@
   <properties>
     <java.version>21</java.version>
     <jooq.version>3.20.3</jooq.version>
-    <springdoc.version>2.8.6</springdoc.version>
+    <bh-doc.version>0.0.1-SNAPSHOT</bh-doc.version>
 
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -64,17 +64,43 @@
 
     <!--  DOCUMENTATION   -->
     <dependency>
-      <groupId>org.springdoc</groupId>
-      <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-      <version>${springdoc.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.github.therapi</groupId>
-      <artifactId>therapi-runtime-javadoc</artifactId>
-      <version>0.15.0</version>
+      <groupId>io.pipecrafts</groupId>
+      <artifactId>bushub-documentation</artifactId>
+      <version>${bh-doc.version}</version>
+      <scope>provided</scope>
     </dependency>
 
   </dependencies>
 
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.13.0</version>
+          <configuration>
+            <source>${java.version}</source>
+            <target>${java.version}</target>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.3.1</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>

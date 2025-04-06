@@ -12,6 +12,7 @@
   <modules>
     <module>bushub-commons</module>
     <module>bushub-core</module>
+    <module>bushub-documentation</module>
   </modules>
 
 
