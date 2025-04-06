@@ -11,14 +11,19 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.3.3</version>
+    <version>3.4.4</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
 
   <properties>
     <java.version>21</java.version>
     <spring-modulith.version>1.2.1</spring-modulith.version>
-    <jooq.version>3.19.11</jooq.version>
+    <jooq.version>3.20.3</jooq.version>
+    <bh-commons.version>0.0.1-SNAPSHOT</bh-commons.version>
+    <bh-doc.version>0.0.1-SNAPSHOT</bh-doc.version>
+    <therapi-runtime-javadoc.version>0.15.0</therapi-runtime-javadoc.version>
+
+
     <testcontainers-jooq-codegen-maven-plugin.version>0.0.4</testcontainers-jooq-codegen-maven-plugin.version>
   </properties>
 
@@ -81,9 +86,13 @@
     <dependency>
       <groupId>io.pipecrafts</groupId>
       <artifactId>bushub-commons</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
+      <version>${bh-commons.version}</version>
     </dependency>
-
+    <dependency>
+      <groupId>io.pipecrafts</groupId>
+      <artifactId>bushub-documentation</artifactId>
+      <version>${bh-doc.version}</version>
+    </dependency>
 
     <dependency>
       <groupId>org.springframework.modulith</groupId>
@@ -175,7 +184,8 @@
           <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>${postgresql.version}</version>
+<!--            <version>${postgresql.version}</version>-->
+            <version>42.7.4</version>
           </dependency>
 
         </dependencies>
@@ -240,6 +250,59 @@
               </strategy>
             </generator>
           </jooq>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <annotationProcessorPaths>
+            <path>
+              <groupId>com.github.therapi</groupId>
+              <artifactId>therapi-runtime-javadoc-scribe</artifactId>
+              <version>0.15.0</version>
+            </path>
+          </annotationProcessorPaths>
+        </configuration>
+      </plugin>
+
+
+      <!--   Workaround   -->
+      <!--  https://stackoverflow.com/questions/79256929/lombok-annotations-not-working-in-spring-boot-project-java-21    -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <annotationProcessorPaths>
+            <path>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+              <version>1.18.36</version>
+            </path>
+          </annotationProcessorPaths>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.13.0</version>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+          <annotationProcessorPaths>
+            <path>
+              <groupId>com.github.therapi</groupId>
+              <artifactId>therapi-runtime-javadoc-scribe</artifactId>
+              <version>${therapi-runtime-javadoc.version}</version>
+            </path>
+            <path>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+              <version>${lombok.version}</version>
+            </path>
+          </annotationProcessorPaths>
         </configuration>
       </plugin>
 

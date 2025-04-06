@@ -1,6 +1,7 @@
 package io.pipecrafts.core.fleet.bus;
 
 import io.pipecrafts.commons.core.flt.bus.Bus;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -10,10 +11,16 @@ import java.util.List;
 @RestController
 @RequestMapping("/buses")
 @RequiredArgsConstructor
+@Tag(name = "Core / Bus")
 public class BusController {
 
   private final BusRepository busRepository;
 
+  /**
+   * Creates a new bus record
+   *
+   * @return ID of the bus created
+   */
   @PostMapping
   public Long createBus(@Valid @RequestBody Bus bus) {
     return busRepository.create(bus);
