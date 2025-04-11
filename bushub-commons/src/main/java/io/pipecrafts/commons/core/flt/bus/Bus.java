@@ -30,6 +30,7 @@ public record Bus(
     accessMode = Schema.AccessMode.READ_WRITE
   )
   @NotBlank
+  @Size(min = 6, max = 12, message = "Invalid plate number length")
   String plateNumber,
 
   @Schema(
