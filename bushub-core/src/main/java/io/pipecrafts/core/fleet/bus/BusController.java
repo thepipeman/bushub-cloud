@@ -4,6 +4,7 @@ import io.pipecrafts.commons.core.flt.bus.Bus;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class BusController {
    * @return ID of the bus created
    */
   @PostMapping
+  @ResponseStatus(HttpStatus.CREATED)
   public Long createBus(@Valid @RequestBody Bus bus) {
     return busRepository.create(bus);
   }
