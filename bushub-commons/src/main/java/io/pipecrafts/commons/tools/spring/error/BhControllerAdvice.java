@@ -1,9 +1,6 @@
 package io.pipecrafts.commons.tools.spring.error;
 
-import io.pipecrafts.commons.tools.error.BhErrorCode;
-import io.pipecrafts.commons.tools.error.BhException;
-import io.pipecrafts.commons.tools.error.BhResourceNotFoundException;
-import io.pipecrafts.commons.tools.error.ErrorResponse;
+import io.pipecrafts.commons.tools.error.*;
 import io.pipecrafts.commons.tools.spring.request.RequestContext;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.NonNull;
@@ -62,6 +59,16 @@ public class BhControllerAdvice {
     });
     return createErrResponse(request, BhErrorCode.INVALID_INPUT, ex.getMessage(), errorAttrs);
   }
+
+  @ExceptionHandler(BhDuplicateResourceException.class)
+  @ResponseStatus(HttpStatus.CONFLICT)
+  ErrorResponse handleDuplicateResource(
+    HttpServletRequest request,
+    BhDuplicateResourceException exception
+  ) {
+    return createErrResponse(request, BhErrorCode.DUPLICATE_RESOURCE, exception.getMessage());
+  }
+
 
   private ErrorResponse createErrResponse(HttpServletRequest request,
                                           @NonNull BhErrorCode errorCode,

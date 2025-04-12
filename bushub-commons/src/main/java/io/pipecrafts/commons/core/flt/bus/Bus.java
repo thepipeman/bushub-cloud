@@ -3,6 +3,7 @@ package io.pipecrafts.commons.core.flt.bus;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 public record Bus(
 
@@ -29,6 +30,7 @@ public record Bus(
     accessMode = Schema.AccessMode.READ_WRITE
   )
   @NotBlank
+  @Size(min = 6, max = 12, message = "Invalid plate number length")
   String plateNumber,
 
   @Schema(
@@ -36,6 +38,7 @@ public record Bus(
     example = "BAA1234",
     accessMode = Schema.AccessMode.READ_WRITE
   )
+  @Size(max = 25)
   String number
 ) {
 }

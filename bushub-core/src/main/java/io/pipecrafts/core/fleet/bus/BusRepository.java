@@ -1,6 +1,7 @@
 package io.pipecrafts.core.fleet.bus;
 
 import io.pipecrafts.commons.core.flt.bus.Bus;
+import io.pipecrafts.commons.tools.error.BhDuplicateResourceException;
 import io.pipecrafts.commons.tools.error.BhResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,12 @@ public class BusRepository {
   // reference: https://www.sivalabs.in/spring-boot-jooq-tutorial-crud-operations/#implementing-finduserbyid
 
   public Long create(Bus bus) {
+
+    if (existsByBusNumber(bus.number())) {
+      // TODO create AOP / Annotation for this
+      throw new BhDuplicateResourceException(Bus.class, "number", bus.number());
+    }
+
     final var id = dsl.insertInto(BUS)
       .set(BUS.BUS_TYPE, bus.type())
       .set(BUS.NUMBER, bus.number())
@@ -50,6 +57,13 @@ public class BusRepository {
       .fetchOptional(mapping(Bus::new));
 
     return optionalBus.orElseThrow(() -> BhResourceNotFoundException.ofId(Bus.class, id));
+  }
+
+  @Transactional(readOnly = true)
+  public boolean existsByBusNumber(String busNumber) {
+    return dsl.fetchExists(dsl.selectOne()
+      .from(BUS)
+      .where(BUS.NUMBER.eq(busNumber)));
   }
 
 }
