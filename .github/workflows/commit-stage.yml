@@ -1,0 +1,24 @@
+name: Commit Stage - Tests
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup maven
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'maven'
+      - name: Build documentation
+        working-directory: ./bushub-documentation
+        run: mvn clean package
+      ## Work on this when packages is setup
+#      - name: Build commons
+#        working-directory: ./bushub-commons
+#        run: mvn clean package
+
+
