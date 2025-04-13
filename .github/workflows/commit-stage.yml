@@ -16,8 +16,9 @@ jobs:
       - name: Build documentation
         working-directory: ./bushub-documentation
         run: mvn clean package
-      - name: Build commons
-        working-directory: ./bushub-commons
-        run: mvn clean package
+      ## Work on this when packages is setup
+#      - name: Build commons
+#        working-directory: ./bushub-commons
+#        run: mvn clean package
 
 
