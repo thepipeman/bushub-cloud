@@ -20,11 +20,6 @@
     <maven.compiler.target>${java.version}</maven.compiler.target>
   </properties>
 
-<!--  <parent>-->
-<!--    <groupId>org.springframework.boot</groupId>-->
-<!--    <artifactId>spring-boot-dependencies</artifactId>-->
-<!--    <version>3.3.3</version>-->
-<!--  </parent>-->
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
