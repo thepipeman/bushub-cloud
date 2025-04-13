@@ -13,11 +13,11 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
           cache: 'maven'
-      - name: Build commons
-        working-directory: ./bushub-commons
-        run: mvn clean package
       - name: Build documentation
         working-directory: ./bushub-documentation
+        run: mvn clean package
+      - name: Build commons
+        working-directory: ./bushub-commons
         run: mvn clean package
 
 
