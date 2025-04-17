@@ -27,7 +27,6 @@ spring:
     out-of-order: true
     table: schema_version
 
-
 logging:
   ignore-get-requests: true
   shorten-stacktrace: true

@@ -263,37 +263,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <annotationProcessorPaths>
-            <path>
-              <groupId>com.github.therapi</groupId>
-              <artifactId>therapi-runtime-javadoc-scribe</artifactId>
-              <version>0.15.0</version>
-            </path>
-          </annotationProcessorPaths>
-        </configuration>
-      </plugin>
-
-
-      <!--   Workaround   -->
-      <!--  https://stackoverflow.com/questions/79256929/lombok-annotations-not-working-in-spring-boot-project-java-21    -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <annotationProcessorPaths>
-            <path>
-              <groupId>org.projectlombok</groupId>
-              <artifactId>lombok</artifactId>
-              <version>1.18.36</version>
-            </path>
-          </annotationProcessorPaths>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
         <version>3.13.0</version>
         <configuration>
           <source>${java.version}</source>
@@ -308,6 +277,10 @@
               <groupId>org.projectlombok</groupId>
               <artifactId>lombok</artifactId>
               <version>${lombok.version}</version>
+            </path>
+            <path>
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot-configuration-processor</artifactId>
             </path>
           </annotationProcessorPaths>
         </configuration>
