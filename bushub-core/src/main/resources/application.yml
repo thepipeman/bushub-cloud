@@ -8,6 +8,21 @@ spring:
   application:
     name: bushub-core
 
+  # Config
+  config:
+    import: "optional:configserver:"
+
+  cloud:
+    config:
+      uri: http://localhost:9200/config
+      request-connect-timeout: 5000
+      request-read-timeout: 5000
+      retry:
+        max-attempts: 3
+        initial-interval: 2000
+        max-interval: 4000
+        multiplier: 1.5
+
   # Datasource settings
   datasource:
     url: jdbc:postgresql://localhost:5432/bushub_core
@@ -27,6 +42,8 @@ spring:
     out-of-order: true
     table: schema_version
 
+
+
 logging:
   ignore-get-requests: true
   shorten-stacktrace: true
@@ -34,3 +51,12 @@ logging:
   pattern:
     console: "%clr(%d){faint} %clr(%level) [%clr(%X{requestId}){magenta}] %clr(%logger{35}){cyan}: %msg%n"
     file: "%d{yyyy-MM-dd HH:mm:ss,SSS} %level [%X{requestId}][%clr(%X{sid}){boldGreen}] %logger{35}: %msg%n"
+
+# Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+#  TODO: change this on a latter stage to a secured endpoint for admin or metrics
+#      base-path: /actuator
